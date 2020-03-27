@@ -51,10 +51,6 @@ for (let key in allPages) {
         new VueSSRClientPlugin({
           filename: `server/${page.dirName}/vue-ssr-client-manifest.json`//dist目录
         }),
-        // new HtmlWebpackPlugin({
-        //   template: path.resolve(__dirname, '../src/index.html'),
-        //   filename: `${page.filename}/index.html`
-        // })
       ]
     });
     let sConfig = merge({}, serverConfig, {

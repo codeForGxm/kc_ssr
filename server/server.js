@@ -46,9 +46,6 @@ if (process.env.NODE_ENV === 'production') {
       ctx.type = 'html';
       ctx.body = ssrStream;
     }
-    // 后端Server
-    backendApp.use(serve(path.resolve(__dirname, '../dist')));
-
     // backendRouter.get('*', render)
     backendRouter.get(`/${ele}/index.html*`, render)
   });
@@ -73,13 +70,13 @@ if (process.env.NODE_ENV === 'production') {
         ctx.type = 'html';
         ctx.body = ssrStream;
       }
-      // 后端Server
-      backendApp.use(serve(path.resolve(__dirname, '../dist')));
-    
       backendRouter.get(`/${ele}/index.html*`, render)
     })
   })
 }
+// 后端Server
+backendApp.use(serve(path.resolve(__dirname, '../dist')));
+
 backendApp
   .use(backendRouter.routes())
   .use(backendRouter.allowedMethods());
