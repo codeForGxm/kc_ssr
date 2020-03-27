@@ -26,10 +26,9 @@ function getPages() {
 }
 let allPages = getPages()
 if (process.env.NODE_ENV === 'production') {
-  console.log('000000000')
   allPages.forEach(ele => {
-    const serverBundle = require(path.resolve(__dirname, `../dist/server/${ele}/vue-ssr-server-bundle.json`));
-    const clientManifest = require(path.resolve(__dirname, `../dist/server/${ele}/vue-ssr-client-manifest.json`));
+    const serverBundle = require(path.resolve(__dirname, `../dist/${ele}/vue-ssr-server-bundle.json`));
+    const clientManifest = require(path.resolve(__dirname, `../dist/${ele}/vue-ssr-client-manifest.json`));
     const template = fs.readFileSync(path.resolve(__dirname, `../dist/index.html`), 'utf-8');
     let bundleRenderer = createBundleRenderer(serverBundle, {
       runInNewContext: false,
@@ -54,12 +53,12 @@ if (process.env.NODE_ENV === 'production') {
     let bundleRenderer = null
     setupDevServer(backendApp, ele, (bundle, clientManifest) => {
       // 赋值
+      const template = fs.readFileSync(path.resolve(__dirname, `../dist/index.html`), 'utf-8');
       bundleRenderer = createBundleRenderer(bundle, {
         runInNewContext: false,
-        // template,
+        template: template,
         clientManifest
       })
-      // console.log('---', bundleRenderer)
       const render = (ctx) => {
         // 渲染上下文
         const context = {

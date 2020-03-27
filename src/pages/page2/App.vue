@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="tt">
     <p>page2</p>
     <h2>异步Ajax数据4：</h2>
     <span>{{ msg }}</span>
@@ -61,4 +61,8 @@ export default {
   }
 }
 </script>
-
+<style>
+  .tt{
+    background: red;
+  }
+</style>

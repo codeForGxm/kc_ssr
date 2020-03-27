@@ -1,7 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isProd = process.env.NODE_ENV == 'production'
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   resolve: {
@@ -28,16 +28,30 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader', 'postcss-loader']
+        test: /\.(less|css)$/,
+        use: [
+          isProd ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ]
       },
       {
         test: /\.(jpg|jpeg|png|gif|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
-            limit: 10000    // 10Kb
+            limit: 10000,    // 10Kb
+            name: 'static/imgs/[name].[hash].[ext]'
           }
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/medias/[name].[hash].[ext]'
         }
       }
     ]

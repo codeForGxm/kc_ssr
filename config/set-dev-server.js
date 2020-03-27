@@ -4,7 +4,7 @@ const path = require('path')
 const MFS = require('memory-fs')
 const webpack = require('webpack')
 const appEntry = require('./mutipageConfig');
-
+const chokidar = require('chokidar')
 
 // webpack热加载需要
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
@@ -16,6 +16,7 @@ module.exports = function setupDevServer(app, pageName, cb) {
   const serverConfig = appEntry[pageName].serverConfig
   let bundle
   let clientManifest
+  let template
  // 读取vue-ssr-webpack-plugin生成的文件
   const readFile = (fs, file) => {
     try {
@@ -30,10 +31,10 @@ module.exports = function setupDevServer(app, pageName, cb) {
       cb(bundle, clientManifest)
     }
   }
-//  console.log(clientConfig.entry)
+
   // 修改webpack配合模块热替换使用
-  clientConfig.entry.app = ['webpack-hot-middleware/client?timeout=20000&reload=true', clientConfig.entry[pageName]]
-  clientConfig.output.filename = '[name].js'
+  clientConfig.entry = ['webpack-hot-middleware/client?timeout=2000&reload=true', clientConfig.entry[pageName]]
+  // clientConfig.output.filename = '[name].js'
   clientConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -53,7 +54,7 @@ module.exports = function setupDevServer(app, pageName, cb) {
     if (stats.errors.length) return
     clientManifest = JSON.parse(readFile(
       devMiddleware.fileSystem,
-      `server/${pageName}/vue-ssr-client-manifest.json`
+      `${pageName}/vue-ssr-client-manifest.json`
     ))
     update()
   })
@@ -70,7 +71,7 @@ module.exports = function setupDevServer(app, pageName, cb) {
     if (stats.errors.length) return
  
     //  vue-ssr-webpack-plugin 生成的bundle
-    bundle = JSON.parse(readFile(mfs, `server/${pageName}/vue-ssr-server-bundle.json`))
+    bundle = JSON.parse(readFile(mfs, `${pageName}/vue-ssr-server-bundle.json`))
     update()
   })
 }

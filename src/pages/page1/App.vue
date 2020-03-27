@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <p>page1</p>
-    <h2>异步Ajax数据1：</h2>
-    <span>{{ msg }}</span>
+    <div class="wrap">
+      <p >page1</p>
+      <h2>111异步Ajax数据111111：</h2>
+      <span>{{ msg }}</span>
+      <img src="./imgs/img_bg.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -61,4 +64,12 @@ export default {
   }
 }
 </script>
-
+<style lang="less" scoped>
+.wrap{
+    background: red;
+    .name{
+      font-size: 14px;
+      display: flex;
+    }
+  }
+</style>
