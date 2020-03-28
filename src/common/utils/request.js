@@ -4,7 +4,8 @@ let needManualRedirect = true;
 
 // NOTE(Haobo): Create the axios root example.
 const service = axios.create({
-  baseURL: process.env.NODE_ENV == 'development' ? 'http://kcapp.rdtest.xuanke.com' : 'http://kcapp.rdtest.xuanke.com',
+  // baseURL: process.env.NODE_ENV == 'development' ? 'http://kcapp.rdtest.xuanke.com' : 'http://kcapp.rdtest.xuanke.com',
+  baseURL: '',
   timeout: 30 * 1000
 });
 
@@ -72,7 +73,6 @@ service.interceptors.response.use(
 );
 
 function handle (req) {
-  console.log(req)
   if (req.params && req.params.needManualRedirect) {
     needManualRedirect = req.params.needManualRedirect;
     delete req.params.needManualRedirect;

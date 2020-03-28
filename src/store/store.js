@@ -17,7 +17,7 @@ function createStore() {
       getInitData ({commit}, receive) {
         // `store.dispatch()` 会返回 Promise，{getDataFun, key}
         // 以便我们能够知道数据在何时更新
-        return receive.initData().then( data => {
+        return receive.initData(receive.params).then( data => {
           commit('INIT_DATA', {'key': receive.key,  data})
         })
       }

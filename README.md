@@ -8,9 +8,10 @@ kc_ssr
 npm install
 # serve in dev mode, with hot reload at localhost:3000
 npm run dev
-# build for production and start server
+# build for production 
 npm run build
-
+# build for production and start server
+npm run dev_build
 # 其他介绍
 - 1、server/server.js 配置http server，开dev方式下，引用了config/set-dev-server.js（进行热重载）
 

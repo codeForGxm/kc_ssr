@@ -8,6 +8,14 @@ const setupDevServer = require('../config/set-dev-server')
 const { createBundleRenderer } = require('vue-server-renderer');
 const backendApp = new Koa();
 const backendRouter = new Router();
+
+// 跨域配置
+const crosConfig = require('./cors')
+backendApp.use(crosConfig)
+// 代理配置(跨域一定要注册在代理之前。坑。。。。。。大坑)
+const proxyConig = require('./proxy')
+backendApp.use(proxyConig)
+
 function getPages() {
   // 匹配基础项
   const fileConfig = {
@@ -53,7 +61,7 @@ if (process.env.NODE_ENV === 'production') {
     let bundleRenderer = null
     setupDevServer(backendApp, ele, (bundle, clientManifest) => {
       // 赋值
-      const template = fs.readFileSync(path.resolve(__dirname, `../dist/index.html`), 'utf-8');
+      const template = fs.readFileSync(path.resolve(__dirname, `../src/index.html`), 'utf-8');
       bundleRenderer = createBundleRenderer(bundle, {
         runInNewContext: false,
         template: template,
@@ -67,7 +75,7 @@ if (process.env.NODE_ENV === 'production') {
         const ssrStream = bundleRenderer.renderToStream(context);
         ctx.status = 200;
         ctx.type = 'html';
-        ctx.body = ssrStream;
+        ctx.body = ssrStream
       }
       backendRouter.get(`/${ele}/index.html*`, render)
     })
