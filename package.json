@@ -5,7 +5,7 @@
   "license": "gxm",
   "scripts": {
     "start": "node server/server.js",
-    "dev": "cross-env NODE_ENV=development node server/server",
+    "dev": "cross-env NODE_ENV=development BASE_API='http://127.0.0.1:3000' node server/server",
     "dev_build": "npm run build && cross-env NODE_ENV=production node server/server",
     "build": "rimraf dist &&cross-env NODE_ENV=production node config/build.js"
   },

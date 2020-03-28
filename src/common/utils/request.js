@@ -4,8 +4,7 @@ let needManualRedirect = true;
 
 // NOTE(Haobo): Create the axios root example.
 const service = axios.create({
-  // baseURL: process.env.NODE_ENV == 'development' ? 'http://kcapp.rdtest.xuanke.com' : 'http://kcapp.rdtest.xuanke.com',
-  baseURL: '',
+  baseURL: process.env.BASE_API,
   timeout: 30 * 1000
 });
 
