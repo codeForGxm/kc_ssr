@@ -13,6 +13,10 @@ npm run build
 # build for production and start server
 npm run dev_build
 # 其他介绍
+
+本项目为MPA配置，同时支持在page中在进行SPA操作。
+如果某一page需要spa参照pages/page1下的配置信息，否则参照pages/page2
+
 - 1、server/server.js 配置http server，开dev方式下，引用了config/set-dev-server.js（进行热重载）
 
 - 2、src/pages/** entry-client.js entry-server.js 分别用以区分客户端和服务端入口，entry-client.js：server进行渲染初始状态之后，由客户端进行接管进行后续
@@ -27,7 +31,8 @@ npm run dev_build
 
   bar 为取到数据之后，数据存放在 state.initPageData 的键值（如果one page 多个api进行语句，主要key值不要重复，负责后面的数据会覆盖前面的数据）
 
-  store中根据initData，和 key 用来获取 page中传入的异步接口和数据存放key，值
+  store中根据initData，和 key 用来获取 page中传入的异步接口和数据存放key值
+
 
 - 5、store 中 initPageData带个per page的预取数据，在切换页面的时候，会进行覆盖。（这里并没有采用 per page or compennt懒注册的方式，因为切换会覆盖，不存在 muti page 公用数据 造成数据污染的问题）
 

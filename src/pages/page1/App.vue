@@ -1,10 +1,13 @@
 <template>
+  <div id="app">
     <div class="wrap">
       <p >page1</p>
       <h2>111异步Ajax数据111111：</h2>
-      <span>{{ msg }}</span>
+      <span>{{ msg.data[1].name}}</span>
       <img src="./imgs/img_bg.png" alt="">
     </div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>

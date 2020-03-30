@@ -1,7 +1,6 @@
 import axios from "axios";
 import { getHost } from '@common/utils/util'
 let needManualRedirect = true;
-
 // NOTE(Haobo): Create the axios root example.
 const service = axios.create({
   baseURL: process.env.BASE_API,

@@ -61,13 +61,29 @@ export default context => {
           allRequests.push(ele)
         })
     }
-    Promise.all(allRequests.map(req => {
-      return req(store)
-    })).then(() => {
-      // 当使用 template 时，context.state 将作为 window.__INITIAL_STATE__ 状态，自动嵌入到最终的 HTML 中
-      context.state = store.state;
-      // 返回根组件
-      resolve(app);
-    });
+    console.log('00000000000000', context.url)
+    router.push(context.url)
+    router.onReady(() => {
+      const matchedComponents = router.getMatchedComponents()
+      if (!matchedComponents.length) {
+        return reject({ code: 404 });
+      }
+      matchedComponents.forEach(component => {
+        if (component && component.asyncData && component.asyncData.length > 0) {
+          component.asyncData.forEach(ele => {
+            allRequests.push(ele)
+          })
+        }
+      })
+      Promise.all(allRequests.map(req => {
+        return req(store)
+      })).then(() => {
+        // 当使用 template 时，context.state 将作为 window.__INITIAL_STATE__ 状态，自动嵌入到最终的 HTML 中
+        context.state = store.state;
+        // 返回根组件
+        console.log(app)
+        resolve(app);
+      }, reject);
+    })
   });
 }

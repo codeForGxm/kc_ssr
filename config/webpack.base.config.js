@@ -21,11 +21,12 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        use: 'vue-loader'
-      },
-      {
+        exclude: /node_modules/,
+        use: ['vue-loader?cacheDirectory']
+      }, {
         test: /\.js$/,
-        use: 'babel-loader'
+        exclude: /node_modules/,
+        use: ['babel-loader?cacheDirectory']
       },
       {
         test: /\.(less|css)$/,
@@ -56,7 +57,6 @@ module.exports = {
       }
     ]
   },
-
   plugins: [
     new VueLoaderPlugin()
   ]

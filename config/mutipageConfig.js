@@ -44,7 +44,8 @@ for (let key in allPages) {
         [page.dirName]: `${page.entry}/entry-client.js`        //buildEntryFiles生成的配置文件
       },
       output: {
-        filename: isProd ? `${page.dirName}/[name].[chunkhash:8].js` : `${page.dirName}/[name].js` //dist目录
+        filename: isProd ? `${page.dirName}/[name].[chunkhash:8].js` : `${page.dirName}/[name].js`, //dist目录
+        // chunkFilename: isProd ? 'chunks/[name]/[name].[contenthash].js':'chunks/[name]/[name].js'
       },
       plugins: [
         new VueSSRClientPlugin({

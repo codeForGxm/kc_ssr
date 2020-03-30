@@ -9,6 +9,12 @@ const { createBundleRenderer } = require('vue-server-renderer');
 const backendApp = new Koa();
 const backendRouter = new Router();
 
+// 跨域配置
+const crosConfig = require('./cors')
+backendApp.use(crosConfig)
+// 代理配置(跨域一定要注册在代理之前。坑。。。。。。大坑)
+const proxyConig = require('./proxy')
+backendApp.use(proxyConig)
 
 function getPages() {
   // 匹配基础项
@@ -51,12 +57,6 @@ if (process.env.NODE_ENV === 'production') {
     backendRouter.get(`/${ele}/index.html*`, render)
   });
 } else {
-  // 跨域配置
-  const crosConfig = require('./cors')
-  backendApp.use(crosConfig)
-  // 代理配置(跨域一定要注册在代理之前。坑。。。。。。大坑)
-  const proxyConig = require('./proxy')
-  backendApp.use(proxyConig)
   allPages.forEach(ele => {
     let bundleRenderer = null
     setupDevServer(backendApp, ele, (bundle, clientManifest) => {
