@@ -2,6 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const serve = require('koa-static');
 const path = require('path');
+const titleConfig = require('../common-conf-files/title/index')
 const fs = require('fs');
 const glob = require('glob');
 const setupDevServer = require('../config/set-dev-server')
@@ -70,7 +71,8 @@ if (process.env.NODE_ENV === 'production') {
       const render = (ctx) => {
         // 渲染上下文
         const context = {
-          url: ctx.url
+          url: ctx.url,
+          title: titleConfig[ele] || '考虫'
         }
         const ssrStream = bundleRenderer.renderToStream(context);
         ctx.status = 200;

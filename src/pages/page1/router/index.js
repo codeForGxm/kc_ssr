@@ -7,24 +7,24 @@ Vue.use(Router);
 
 function createRouter() {
   const routes = [
-        {
-          path:'/page1/index.html/index',
-          component: Index
-        },
-        {
-          path:'/page1/index.html/test1',
-          component: Test1
-        },
-        {
-          path: '/page1/index.html/test2',
-          component: Test2
-        },
-        {
-        path: "*",
-        redirect: () => {
-          return '/page1/index.html/index'
-        }
+      {
+        path:'/page1/index.html/index',
+        component: Index
+      },
+      {
+        path:'/page1/index.html/test1',
+        component: Test1
+      },
+      {
+        path: '/page1/index.html/test2',
+        component: Test2
+      },
+      {
+      path: "*",
+      redirect: () => {
+        return '/page1/index.html/index'
       }
+    }
   ];
   const router = new Router({
     mode: 'history',
