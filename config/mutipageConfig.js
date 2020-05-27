@@ -27,7 +27,6 @@ function getPages() {
     const _pathName = `./src${dir.split('src')[1]}`;
     _pages[_filename] = {
       entry: `${_pathName}`,
-      chunks: ['publicSource', 'nodeCommon', 'vue', 'swiper', 'kc-log', 'fastclick', _filename],
       dirName: _filename
     }
   });
@@ -45,7 +44,7 @@ for (let key in allPages) {
       },
       output: {
         filename: isProd ? `${page.dirName}/[name].[chunkhash:8].js` : `${page.dirName}/[name].js`, //dist目录
-        // chunkFilename: isProd ? 'chunks/[name]/[name].[contenthash].js':'chunks/[name]/[name].js'
+        // chunkFilename: isProd ? 'chunks/[name]/[name].[chunkhash:8].js':'chunks/[name]/[name].js'
       },
       plugins: [
         new VueSSRClientPlugin({

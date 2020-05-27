@@ -2,7 +2,6 @@ const path = require('path');
 const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const uglifyjs = require('uglifyjs-webpack-plugin');
 const base = require('./webpack.base.config');
 module.exports = merge(base, {
   optimization: {
@@ -11,7 +10,6 @@ module.exports = merge(base, {
         publicSource: {
           chunks: 'all',
           name: 'publicSource',
-          // test: /[\\/]src[\\/]common[\\/]public-source[\\/]/,
           test: /[\\/]src[\\/]common[\\/]/,
           minSize: 0,
           minChunks: 2
@@ -20,8 +18,7 @@ module.exports = merge(base, {
           name: 'nodeCommon',
           test: /[\\/]node_modules[\\/]/,
           priority: -10,
-          chunks: 'all',
-          enforce: true
+          chunks: 'all'
         },
         vue: {
           chunks: 'all',
@@ -90,7 +87,6 @@ module.exports = merge(base, {
     new CopyWebpackPlugin([{ from: path.resolve(__dirname, '../src/index.html'), to: path.resolve(__dirname, '../dist')}]),
     new MiniCssExtractPlugin({
       filename: 'css/[name]/[name].[hash:8].css',
-    }),
-    new uglifyjs()
+    })
   ]
 });

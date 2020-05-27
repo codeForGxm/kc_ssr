@@ -22,7 +22,7 @@ function createRouter() {
         {
         path: "*",
         redirect: () => {
-          return '/page1/index.html/index/'
+          return '/page1/index.html/index'
         }
       }
   ];
