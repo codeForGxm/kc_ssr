@@ -47,7 +47,8 @@ if (process.env.NODE_ENV === 'production') {
     const render = (ctx) => {
       // 渲染上下文
       const context = {
-        url: ctx.url
+        url: ctx.url,
+        title: titleConfig[ele] || '考虫'
       }
       const ssrStream = bundleRenderer.renderToStream(context);
       ctx.status = 200;
