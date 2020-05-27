@@ -33,7 +33,9 @@ module.exports = function setupDevServer(app, pageName, cb) {
   }
 
   // 修改webpack配合模块热替换使用
-  clientConfig.entry = ['webpack-hot-middleware/client?timeout=2000&reload=true', clientConfig.entry[pageName]]
+  // 多页开发环境下制定 hot middleware 配置工作目录 __webpack_hmr_，否则后续打包的页面无法正常工作
+  let HMRPath = '/__webpack_hmr_' + clientConfig.entry[pageName]
+  clientConfig.entry = ['webpack-hot-middleware/client?timeout=2000&reload=true&path='+HMRPath, clientConfig.entry[pageName]]
   // clientConfig.output.filename = '[name].js'
   clientConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
@@ -60,7 +62,10 @@ module.exports = function setupDevServer(app, pageName, cb) {
   })
  
   // 插入Koa中间件(模块热替换)
-  app.use(webpackHotMiddleware(clientCompiler))
+  app.use(webpackHotMiddleware(clientCompiler, {
+    heartbeat: 5000,
+    path:HMRPath
+  }))
  
   const serverCompiler = webpack(serverConfig)
   const mfs = new MFS()

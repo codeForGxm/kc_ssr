@@ -61,7 +61,6 @@ export default context => {
           allRequests.push(ele)
         })
     }
-    console.log('00000000000000', context.url)
     router.push(context.url)
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents()
@@ -81,7 +80,6 @@ export default context => {
         // 当使用 template 时，context.state 将作为 window.__INITIAL_STATE__ 状态，自动嵌入到最终的 HTML 中
         context.state = store.state;
         // 返回根组件
-        console.log(app)
         resolve(app);
       }, reject);
     })
